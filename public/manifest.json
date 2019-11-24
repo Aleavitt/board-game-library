@@ -1,9 +1,9 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Board Game Library",
+  "name": "Personal Board Game Library Manager",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "Generic-Board-Game-Card.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
