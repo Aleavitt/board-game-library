@@ -4,22 +4,10 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import FormGroup from "react-bootstrap/FormGroup";
-import fire from "../firebase";
 
 class AddGameModal extends Component {
   render() {
-    const {
-      lengthMin,
-      lengthMax,
-      playerMin,
-      playerMax,
-      name,
-      description,
-      userRating,
-      officialRating,
-      onHide,
-      setModalShow
-    } = this.props;
+    const { lengthMin, playerMin, onHide, setModalShow } = this.props;
     return (
       <Modal
         show={setModalShow}

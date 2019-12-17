@@ -16,6 +16,12 @@ class Navbar extends Component {
         <Button variant="primary" onClick={this.props.addGame}>
           Add Game
         </Button>
+        <button
+          className="btn-primary btn float-left"
+          onClick={this.props.handleLogout}
+        >
+          Logout
+        </button>
 
         <AddGameModal
           setModalShow={this.props.setModalShow}
