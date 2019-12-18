@@ -1,17 +1,11 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import {
-  Redirect,
-  Switch,
-  BrowserRouter as Router,
-  Route
-} from "react-router-dom";
+import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
 import fire from "./firebase";
 import Login from "./Login";
-import Join from "./Join";
 import App from "./App";
 
 // If you want your app to work offline and load faster, you can change
@@ -19,14 +13,26 @@ import App from "./App";
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
 
-export const AuthContext = React.createContext(null);
-
 class Main extends Component {
-  state = {
-    isLoggedIn: false,
-    setLoggedIn: {},
-    user: {}
-  };
+  constructor(props) {
+    //THIS IS SUPPOSED TO CHECK TO SEE IF YOU ARE CURRENTLY LOGGEDIN INSTEAD OF TAKING A COUPLE OF DETOURS, BUT IT DOESN"T WORK
+    super(props);
+    let user = fire.auth().currentUser;
+    console.log("Main User Constructor", user);
+    if (user) {
+      this.state = {
+        isLoggedIn: true,
+        setLoggedIn: {},
+        user: user
+      };
+    } else {
+      this.state = {
+        isLoggedIn: false,
+        setLoggedIn: {},
+        user: {}
+      };
+    }
+  }
   handleLogin = user => {
     console.log("HandleLogin", !!user);
     this.setState({ user: user, isLoggedIn: !!user });
@@ -40,6 +46,18 @@ class Main extends Component {
     return (
       <>
         <Router basename="/">
+          <Route
+            exact
+            path={"/"}
+            render={() => (
+              <App
+                isLoggedIn={this.state.isLoggedIn}
+                setLoggedIn={this.state.setLoggedIn}
+                handleLogout={this.handleLogout}
+                user={this.state.user}
+              />
+            )}
+          />
           <Switch>
             <Route
               exact
@@ -49,18 +67,6 @@ class Main extends Component {
                   isLoggedIn={this.state.isLoggedIn}
                   setLoggedIn={this.state.setLoggedIn}
                   handleLogin={this.handleLogin}
-                  handleLogout={this.handleLogout}
-                  user={this.state.user}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/join"
-              render={() => (
-                <Join
-                  isLoggedIn={this.state.isLoggedIn}
-                  setLoggedIn={this.state.setLoggedIn}
                   handleLogout={this.handleLogout}
                   user={this.state.user}
                 />

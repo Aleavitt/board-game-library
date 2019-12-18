@@ -7,10 +7,10 @@ import FormGroup from "react-bootstrap/FormGroup";
 
 class AddGameModal extends Component {
   render() {
-    const { lengthMin, playerMin, onHide, setModalShow } = this.props;
+    const { lengthMin, playerMin, onHide, setAddGameModalShow } = this.props;
     return (
       <Modal
-        show={setModalShow}
+        show={setAddGameModalShow}
         onHide={onHide}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"

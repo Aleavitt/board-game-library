@@ -5,12 +5,15 @@ import AddGameModal from "./addGameModal";
 // Can not use lifecycle hooks in Stateless Functional Components
 
 class Navbar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { setModalShow: false };
-  }
   render() {
-    const { userId, handleChange, saveGame, games } = this.props;
+    const {
+      userId,
+      handleChange,
+      saveGame,
+      games,
+      onHide,
+      setAddGameModalShow
+    } = this.props;
     return (
       <nav className="navbar navbar-light bg-light">
         <Button variant="primary" onClick={this.props.addGame}>
@@ -24,8 +27,8 @@ class Navbar extends Component {
         </button>
 
         <AddGameModal
-          setModalShow={this.props.setModalShow}
-          onHide={this.props.onHide}
+          setAddGameModalShow={setAddGameModalShow}
+          onHide={onHide}
           userId={userId}
           handleChange={handleChange}
           saveGame={saveGame}

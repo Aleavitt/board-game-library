@@ -11,7 +11,7 @@ class App extends Component {
     super(props);
     this.state = {
       games: [],
-      game: {
+      gameTemplate: {
         name: "",
         description: "",
         lengthMax: 0,
@@ -19,21 +19,20 @@ class App extends Component {
         playerMax: 0,
         playerMin: 0,
         officialRating: 0,
-        userRating: 0
+        userRating: 0,
+        tags: {}
       },
-      setModalShow: false
+      setAddGameModalShow: false
     };
   }
 
   componentDidMount() {
-    console.log("State User:", this.props.user);
     let games = fire
       .database()
       .ref("users/" + this.props.user.uid + "/boardGames");
 
     games.once("value", snapshot => {
       let dbGames = snapshot.val();
-      console.log("DBGamesObject:", dbGames);
       if (dbGames == null) {
         return {};
       }
@@ -50,15 +49,16 @@ class App extends Component {
   }
 
   handleChange = event => {
-    let game = this.state.game;
+    let game = this.state.gameTemplate;
     game[event.target.name] = event.target.value;
-    this.setState({ game });
+    this.setState({ gameTemplate: game });
   };
 
   saveGame = e => {
     e.preventDefault();
+    this.setAddGameModalShow(false);
     const uniqueId = Math.floor(Math.random() * 10000000 + 1);
-    let game = this.state.game;
+    let game = this.state.gameTemplate;
     game.length = { min: game.lengthMin, max: game.lengthMax };
     game.numPlayers = { min: game.playerMin, max: game.playerMax };
     game.key = uniqueId;
@@ -74,7 +74,7 @@ class App extends Component {
     this.setState({
       games,
       setModalShow: false,
-      game: {
+      gameTemplate: {
         name: "",
         description: "",
         lengthMax: 0,
@@ -92,16 +92,33 @@ class App extends Component {
       if (error) {
         console.log("Saving Game Failed. Error: ", error);
       } else {
-        console.log("Games saved successfully");
+        console.log("Game saved successfully");
       }
     });
+  };
+
+  deleteGame = e => {
+    alert("I'm sorry. I can't do that " + this.props.user.displayName);
+  };
+  setAddGameModalShow = toggle => {
+    this.setState({ setAddGameModalShow: toggle });
+  };
+
+  addtag = (gameKey, newTag) => {
+    let gameToShow;
+    for (let i = 0; i < this.state.games.length; i++) {
+      let game = { ...this.state.games[i] };
+      if (game.key == gameKey) {
+        gameToShow = game;
+        break;
+      }
+    }
   };
 
   render() {
     if (!this.props.isLoggedIn) {
       return <Redirect to="/login" />;
     }
-    let setModalShow = toggle => this.setState({ setModalShow: toggle });
     return (
       <>
         <script src="/__/firebase/7.5.0/firebase-app.js"></script>
@@ -113,12 +130,16 @@ class App extends Component {
           games={this.state.games}
           saveGame={this.saveGame}
           handleChange={this.handleChange}
-          onHide={() => setModalShow(false)}
-          addGame={() => setModalShow(true)}
-          setModalShow={this.state.setModalShow}
+          onHide={() => this.setAddGameModalShow(false)}
+          addGame={() => this.setAddGameModalShow(true)}
+          setAddGameModalShow={this.state.setAddGameModalShow}
           handleLogout={this.props.handleLogout}
         />
-        <Bookshelf userId={this.props.user.uid} games={this.state.games} />
+        <Bookshelf
+          userId={this.props.user.uid}
+          games={this.state.games}
+          deleteGame={this.deleteGame}
+        />
       </>
     );
   }

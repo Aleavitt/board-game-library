@@ -9,7 +9,8 @@ class BgTile extends Component {
       length,
       numPlayers,
       officialRating,
-      userRating
+      userRating,
+      gameId
     } = this.props;
     return (
       <div
@@ -22,6 +23,7 @@ class BgTile extends Component {
           height: "250px",
           width: "20rem"
         }}
+        onClick={() => this.props.showGame()}
       >
         <div
           className="card-body p-1  bg-dark text-light"
