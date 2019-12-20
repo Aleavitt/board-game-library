@@ -135,7 +135,7 @@ class App extends Component {
     return input.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&");
   };
   handleSearchInput = event => {
-    let filters = [...this.state.textFilter],
+    let filters = [...this.state.filters],
       input = event.target.value;
 
     if (input === "") {
