@@ -30,17 +30,18 @@ class AddGameModal extends Component {
                 type="text"
                 placeholder="Name"
                 name="name"
-                onChange={this.props.handleChange}
+                onChange={this.props.handleFormChange}
               />
               <Form.Control
+                as="textarea"
+                rows="3"
                 className="mb-2"
-                type="text"
                 placeholder="Description"
                 name="description"
-                onChange={this.props.handleChange}
+                onChange={this.props.handleFormChange}
               />
               <Form.Group>
-                <Form.Label className="float-center">
+                <Form.Label className="float-left">
                   Game Length (Minutes)
                 </Form.Label>
                 <Form.Row>
@@ -51,7 +52,7 @@ class AddGameModal extends Component {
                       step="any"
                       placeholder="Min"
                       name="lengthMin"
-                      onChange={this.props.handleChange}
+                      onChange={this.props.handleFormChange}
                     ></Form.Control>
                   </Col>
                   <Col style={{ maxWidth: "100px" }}>
@@ -62,13 +63,13 @@ class AddGameModal extends Component {
                       placeholder="Max"
                       min={lengthMin}
                       name="lengthMax"
-                      onChange={this.props.handleChange}
+                      onChange={this.props.handleFormChange}
                     ></Form.Control>
                   </Col>
                 </Form.Row>
               </Form.Group>
               <Form.Group>
-                <Form.Label className="float-center"># of Players</Form.Label>
+                <Form.Label className="float-left"># of Players</Form.Label>
                 <Form.Row>
                   <Col style={{ maxWidth: "100px" }}>
                     <Form.Control
@@ -76,7 +77,7 @@ class AddGameModal extends Component {
                       type="number"
                       placeholder="Min"
                       name="playerMin"
-                      onChange={this.props.handleChange}
+                      onChange={this.props.handleFormChange}
                     ></Form.Control>
                   </Col>
                   <Col style={{ maxWidth: "100px" }}>
@@ -86,7 +87,7 @@ class AddGameModal extends Component {
                       placeholder="Max"
                       name="playerMax"
                       min={playerMin}
-                      onChange={this.props.handleChange}
+                      onChange={this.props.handleFormChange}
                     ></Form.Control>
                   </Col>
                 </Form.Row>
@@ -100,7 +101,7 @@ class AddGameModal extends Component {
                       type="number"
                       step="any"
                       name="userRating"
-                      onChange={this.props.handleChange}
+                      onChange={this.props.handleFormChange}
                     />
                   </Col>
                 </FormGroup>
@@ -112,7 +113,7 @@ class AddGameModal extends Component {
                       type="number"
                       step="any"
                       name="officialRating"
-                      onChange={this.props.handleChange}
+                      onChange={this.props.handleFormChange}
                     />
                   </Col>
                 </FormGroup>

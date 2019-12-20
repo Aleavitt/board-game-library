@@ -2,6 +2,24 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 
 class BgTile extends Component {
+  showTile = game => {
+    let regExp = new RegExp(this.props.filters.join("|"), "ig");
+    let tags = game.tags || [];
+    // FOR SOME REASON I HAVE TO SET IT AS  A VARIABLE BECAUSE WHEN I JUST DROP THAT EXPRESSION IN THE IF STATEMENT IT WILL NEVER RETURN TRUE
+    let nameContains = regExp.test(game.name);
+    if (nameContains) {
+      return true;
+    }
+    //Check all tags for regexp after name
+    for (let i = 0; i < tags.length; i++) {
+      let tagContains = regExp.test(tags[i]);
+      if (tagContains) {
+        return true;
+      }
+    }
+    return false;
+  };
+  handleMouseOver = () => {};
   render() {
     const {
       name,
@@ -9,22 +27,28 @@ class BgTile extends Component {
       length,
       numPlayers,
       officialRating,
-      userRating,
-      gameId
-    } = this.props;
+      userRating
+    } = this.props.game;
     return (
       <div
-        className="card float-left m-2"
+        className="card float-left m-2 bgTile"
         style={{
           backgroundImage: "url(Generic-Board-Game-Card.png)",
           backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
           backgroundPosition: "center",
+          backgroundColor: "darkgrey",
           height: "250px",
-          width: "20rem"
+          width: "20rem",
+          display: this.showTile(this.props.game) ? null : "none"
         }}
-        onClick={() => this.props.showGame()}
       >
+        <button
+          className="hiddenButton"
+          variant="dark"
+          onClick={() => this.props.setEditGameModalShow(true, this.props.game)}
+        >
+          Edit
+        </button>
         <div
           className="card-body p-1  bg-dark text-light"
           style={{
