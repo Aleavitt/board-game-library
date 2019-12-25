@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import { ReactSVG } from "react-svg";
 
 class BgTile extends Component {
   showTile = game => {
@@ -27,13 +30,15 @@ class BgTile extends Component {
       length,
       numPlayers,
       officialRating,
-      userRating
+      userRating,
+      backgroundURL,
+      playedFlag
     } = this.props.game;
     return (
-      <div
+      <Card
         className="card float-left m-2 bgTile"
         style={{
-          backgroundImage: "url(Generic-Board-Game-Card.png)",
+          backgroundImage: "url(" + backgroundURL + ")",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundColor: "darkgrey",
@@ -43,13 +48,30 @@ class BgTile extends Component {
         }}
       >
         <button
-          className="hiddenButton"
+          className={
+            "hiddenButton " + (playedFlag ? "btn-success" : "btn-danger")
+          }
+          onClick={this.props.togglePlayedTag}
+        >
+          {playedFlag ? "Played" : "Unplayed"}
+        </button>
+        <button
+          className="hiddenButton btn-dark"
           variant="dark"
           onClick={() => this.props.setEditGameModalShow(true, this.props.game)}
         >
           Edit
         </button>
-        <div
+        <ReactSVG
+          src="check.svg"
+          beforeInjection={svg => {
+            svg.classList.add("played-icon-svg");
+          }}
+          className="m-2 played-icon"
+          viewBox="0 0 20 20"
+          style={{ display: playedFlag ? "inline" : "none" }}
+        />
+        <Card.Body
           className="card-body p-1  bg-dark text-light"
           style={{
             opacity: 0.9,
@@ -73,8 +95,8 @@ class BgTile extends Component {
           </div>
           <div className="mr-1 float-left">{"Rating: " + officialRating}</div>
           <div className="mr-1 float-left">{"User Rating: " + userRating}</div>
-        </div>
-      </div>
+        </Card.Body>
+      </Card>
     );
   }
 }

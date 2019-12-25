@@ -124,6 +124,14 @@ class EditGameModal extends Component {
                 </FormGroup>
               </Form.Row>
               <Form.Row>
+                <Form.Control
+                  type="url"
+                  name="backgroundURL"
+                  onChange={this.props.handleFormChange}
+                  placeholder="Background Image URL"
+                />
+              </Form.Row>
+              <Form.Row>
                 <div className="tagContainer">
                   <FormGroup
                     style={{

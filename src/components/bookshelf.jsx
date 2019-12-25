@@ -14,6 +14,7 @@ class Bookshelf extends Component {
             gameId={game.key}
             setEditGameModalShow={this.props.setEditGameModalShow}
             filters={this.props.filters}
+            togglePlayedTag={() => this.props.togglePlayedTag(game.key)}
           />
         ))}
         <EditGameModal

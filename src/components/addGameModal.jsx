@@ -118,6 +118,14 @@ class AddGameModal extends Component {
                   </Col>
                 </FormGroup>
               </Form.Row>
+              <Form.Row>
+                <Form.Control
+                  type="url"
+                  name="backgroundURL"
+                  onChange={this.props.handleFormChange}
+                  placeholder="Background Image URL"
+                />
+              </Form.Row>
             </div>
           </Modal.Body>
           <Modal.Footer>

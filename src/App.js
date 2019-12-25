@@ -12,6 +12,8 @@ const gameTemplate = {
   numPlayers: { min: 0, max: 0 },
   officialRating: 0,
   userRating: 0,
+  backgroundURL: "Generic-Board-Game-Card.png",
+  playedFlag: false,
   tags: []
 };
 
@@ -89,6 +91,39 @@ class App extends Component {
       gameCache.tags.splice(tagIndex, 1);
     }
     this.setState({ gameCache });
+  };
+  togglePlayedTag = uniqueId => {
+    let games = this.state.games;
+    let game = {};
+    let gameFound = false;
+    console.log("Current Game", game.name);
+    console.log("PlayedFlage", game.playedFlag);
+    for (let i = 0; i < games.length; i++) {
+      let currentGame = games[i];
+      if (currentGame.key == uniqueId) {
+        gameFound = true;
+        games[i].playedFlag = !games[i].playedFlag;
+        game = games[i];
+        break;
+      }
+    }
+    if (!gameFound) {
+      alert("Game not found. Update not saved");
+      return false;
+    }
+    this.setState({
+      games
+    });
+    let saveGame = fire
+      .database()
+      .ref("users/" + this.props.user.uid + "/boardGames/" + uniqueId);
+    saveGame.set(game, function(error) {
+      if (error) {
+        console.log("Saving Game Failed. Error: ", error);
+      } else {
+        console.log("Game saved successfully");
+      }
+    });
   };
 
   saveGame = e => {
@@ -291,6 +326,7 @@ class App extends Component {
           gameCache={this.state.gameCache}
           userTags={this.state.userTags}
           handleTagChange={this.handleTagChange}
+          togglePlayedTag={this.togglePlayedTag}
         />
       </>
     );
