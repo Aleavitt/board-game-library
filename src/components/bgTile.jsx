@@ -88,10 +88,12 @@ class BgTile extends Component {
           <h5 className="card-title mb-0">{name}</h5>
           <p className="card-text text-truncate mb-0">{description}</p>
           <div className="mr-1 float-left">
-            {"Length: " + length.min + "-" + length.max}
+            {length ? "Length: " + length.min + "-" + length.max : "Length: 0"}
           </div>
           <div className="mr-1 float-left">
-            {"# Players: " + numPlayers.min + "-" + numPlayers.max}
+            {numPlayers
+              ? "# Players: " + numPlayers.min + "-" + numPlayers.max
+              : "# Players: 0-0"}
           </div>
           <div className="mr-1 float-left">{"Rating: " + officialRating}</div>
           <div className="mr-1 float-left">{"User Rating: " + userRating}</div>

@@ -1,0 +1,5 @@
+firebase
+react.js
+react-router-dom-v4
+react-bootstrap
+react-svg
