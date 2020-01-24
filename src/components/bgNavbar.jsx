@@ -29,7 +29,28 @@ class BGNavbar extends Component {
     return (
       <Navbar collapseOnSelect expand="false" className="navbar bg-dark">
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Accordion style={{ width: "calc(100% - 60px)" }}>
+        <div
+          class="wrapper"
+          id="add-column-button-wrapper"
+          style={{
+            width: "56px",
+            height: "40px",
+            textAlign: "center",
+            verticalAlign: "center",
+            padding: "5px"
+          }}
+        >
+          <input
+            id="add-column-button"
+            type="image"
+            alt="Add Column"
+            src="plus.svg"
+            style={{ width: "30px", height: "30px", cool: "very" }}
+            class="dropbtn"
+            onClick={this.props.addGame}
+          />
+        </div>
+        <Accordion style={{ width: "calc(100% - 112px)" }}>
           <Accordion.Toggle
             className="m-2"
             as={Button}
@@ -62,14 +83,6 @@ class BGNavbar extends Component {
           className="justify-content-center"
         >
           <Nav className="mr-auto">
-            <Button
-              className="m-2"
-              variant="primary"
-              onClick={this.props.addGame}
-              style={{ width: "100%" }}
-            >
-              Add Game
-            </Button>
             <Accordion>
               <Accordion.Toggle
                 className="m-2"

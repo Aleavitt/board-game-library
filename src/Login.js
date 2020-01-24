@@ -69,7 +69,7 @@ class Login extends React.Component {
       );
     } else {
       return (
-        <div className="container">
+        <div className="container" style={{ color: "lightgray" }}>
           <h1>Board Game Library Manager</h1>
 
           {this.props.isLoggedIn !== undefined && !this.props.isLoggedIn && (

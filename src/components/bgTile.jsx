@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
 import { ReactSVG } from "react-svg";
 
 class BgTile extends Component {
@@ -38,7 +37,8 @@ class BgTile extends Component {
       <Card
         className="card float-left m-2 bgTile"
         style={{
-          backgroundImage: "url(" + backgroundURL + ")",
+          backgroundImage:
+            "url(" + (backgroundURL || "Generic-Board-Game-Card.png") + ")",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundColor: "darkgrey",
